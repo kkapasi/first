@@ -1,0 +1,269 @@
+Inbuilt Functions
+-----------------
+
+min
+max
+type
+sum
+len
+raw_input
+help
+pow
+
+---
+
+#TODO - retry the raw_input
+
+File Handling
+-------------
+
+fobj = open('<filename>',<mode>) // fobj is the file obj. modes are 'r', 'w', 'a'
+                              // 'r' is read-only. cannot edit/delete
+                              // 'w' is write mode. deletes all content and opens to write
+                              // 'a' is append mode.
+                              //  fobj.closed, fobj.mode, fobj.name
+
+/* fwrite.py */
+
+fobj = open('ircnicks.txt', 'w')
+fobj.write('sayan\n')
+fobj.write('kracekumar\n')
+fobj.write('kaakku\n')
+fobj.close()
+
+---
+
+/* shell */
+fobj = open('ircnicks.txt', 'w')
+
+---
+
+/* fread.py */
+
+fobj = open('movies.txt')
+contents = fobj.read()
+print contents
+
+// If you call read() again it will return empty string as it already read the whole file.
+
+
+fobj = open('movies.txt')
+contents = fobj.read()
+print "After First Read", contents
+contents = fobj.read()
+print "After Second Read", contents // return ''
+fobj.close()
+
+---
+
+fobj = open('movies.txt')
+print fobj.readline()
+print fobj.readline()
+fobj.close()
+
+---
+
+fobj = open('movies.txt')
+print fobj.readlines()
+fobj.close()
+
+
+fobj = open('movies.txt')
+contents = fobj.readlines()
+for content in contents:
+    print content
+fobj.close()
+
+---
+
+fobj = open("movies.txt")
+for x in fobj:
+    print x
+
+---
+
+#TODO - Write a program to copy movies.txt to movies_copy.txt
+
+fobj = open("movies.txt")
+fobj1 = open("movies_copy.txt", "w")
+
+for x in fobj:
+    fobj1.write(x)
+
+fobj.close()
+fobj1.close()
+
+---
+
+Tuples are data separated by comma.
+
+distros = 'Fedora', 'Debian', 'Kubuntu', 'Pardus'
+print distros
+print type(distros)
+
+distros[1]
+
+for distro in distros:
+    print distro
+
+Tuples are immutable, that means you can not del/add/edit any value inside the tuple
+
+distros.append('Mint')
+
+a = (123)
+print a
+print type(a)
+a = (123, ) #Look at the trailing comma
+print a
+print type(a)
+
+---
+
+fobj = open("movies.txt")
+
+for x in fobj:
+    print x.strip().rsplit(' ', 1)
+
+---
+
+fobj = open("movies.txt")
+
+for x in fobj:
+    key, value = x.strip().rsplit(' ', 1)
+
+---
+
+fobj = open("movies.txt")
+
+movie_dict = {}
+for x in fobj:
+    movie, rating = x.strip().rsplit(' ', 1)
+    movie_dict[movie] = rating
+
+print movie_dict
+
+---
+
+fobj = open("movies.txt")
+
+movie_dict = {}
+for x in fobj:
+    movie, rating = x.strip().rsplit(' ', 1)
+    movie_dict[movie] = rating
+
+for item in movie.items():
+    print item
+    print type(item)
+
+for movie, rating in movie.items():
+    print "Key", movie
+    print "Value", rating
+
+print movie_dict['Inception']
+
+memento = movie_dict['memento'] //raises error
+
+try:
+    memento = movie_dict['memento']
+except:
+    memento = 0
+print 'Memento', memento
+
+try:
+    memento = movie_dict['memento']
+except NameError:
+    memento = 0
+print memento
+
+try:
+    memento = movie_dict['memento']
+except KeyError:
+    memento = 0
+print memento
+
+try:
+    memento = movie_dict['memento']
+except (KeyError, NameError):
+    memento = 0
+
+try:
+    memento = movie_dict['memento']
+except NameError:
+    print 'In NameError'
+    memento = 0
+except KeyError:
+    print 'In KeyError'
+    memento = 0
+print memento
+
+interstellar = movie_dict.get('interstellar')
+print interstellar
+
+memento = movie_dict.get('memento') // returns None
+print memento
+
+memento = movie_dict.get('memento', 0)
+print memento // prints 0
+
+// Update a value
+    syntax - dict.update(dict)
+
+movie_dict.update({'Gangs of Wasseypur': '8.6'})
+
+---
+#TODO - Using this movie dict print all the movie with rating 8.9
+
+---
+
+/* fclass.py */
+
+class Movies():
+    def __init__(self):
+        self.movie_names = []
+        self.ratings = []
+
+def print_message(msg):
+    return '/------ %s -------/' % msg
+
+movieobj = Movies()
+print print_message("After Intialization")
+print movieobj.movie_names
+print movieobj.ratings
+
+****
+
+    def populate_movie_names(self, movie_dict):
+        for movie, rating in movie_dict.items():
+            self.movie_names.append(movie)
+
+fobj = open("movies.txt")
+
+movie_dict = {}
+for x in fobj:
+    movie, rating = x.strip().rsplit(' ', 1)
+    movie_dict[movie] = rating
+
+movieobj.populate_movie_names(movie_dict)
+
+print print_message("After Populating")
+
+print movieobj.movie_names
+---
+#TODO populate the rating
+
+    def populate_rating(self, movie_dict):
+        for movie, rating in movie_dict.items():
+            self.ratings.append(rating)
+---
+
+def is_movie_name(self, name):
+    return name in self.movie_names
+
+---
+#TODO create a method that takes in two dictionary (1. movie_dict) and (2. update_movie_dict) and updates the movie names list, rating list and the movie_dict
+
+schema
+
+def update_movie(self, movie_dict, update_movie_dict):
+// Update movie_dict, rating list, movie_name list
+return movie_dict
